@@ -1,0 +1,1 @@
+Mały szkolny programik prezentujący kilka brył.
