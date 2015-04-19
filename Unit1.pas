@@ -16,19 +16,20 @@ type
     RadioGroup1: TRadioGroup;
     Label1: TLabel;
     TabControl1: TTabControl;
+    Panel2: TPanel;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
-    procedure FormResize(Sender: TObject);
     procedure Timer1Timer(Sender: TObject);
-    procedure FormPaint(Sender: TObject);
-    procedure FormMouseMove(Sender: TObject; Shift: TShiftState; X,
-      Y: Integer);
-    procedure FormMouseDown(Sender: TObject; Button: TMouseButton;
-      Shift: TShiftState; X, Y: Integer);
-    procedure FormMouseUp(Sender: TObject; Button: TMouseButton;
-      Shift: TShiftState; X, Y: Integer);
     procedure TabControl1Change(Sender: TObject);
     procedure RadioGroup1Click(Sender: TObject);
+    procedure FormPaint(Sender: TObject);
+    procedure Panel2MouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure Panel2MouseMove(Sender: TObject; Shift: TShiftState; X,
+      Y: Integer);
+    procedure Panel2MouseUp(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure Panel2Resize(Sender: TObject);
   private
     h_RC:HGLRC; // Permanent Rendering Context
     h_DC:HDC; // Private GDI Device Context
@@ -368,7 +369,7 @@ const
 var
   PixelFormat:GLuint;
 begin
-  self.h_DC:=Windows.GetDC(self.Handle);
+  self.h_DC:=Windows.GetDC(self.Panel2.Handle);
   PixelFormat:=ChoosePixelFormat(h_DC,@pfd);
   if (PixelFormat=0) then
   begin
@@ -394,11 +395,6 @@ begin
   InitGL(Form1.ClientWidth-GroupBox1.ClientWidth-5, Form1.ClientHeight);
 end;
 
-procedure TForm1.FormResize(Sender: TObject);
-begin
-  ReSizeGLScene(Form1.ClientWidth-GroupBox1.ClientWidth-5,Form1.ClientHeight);
-end;
-
 procedure TForm1.Timer1Timer(Sender: TObject);
 begin
   //zmienna nie moze przekroczyc wartosci maksymalnej
@@ -407,37 +403,6 @@ begin
   teta:=teta+1;
   //ponowne narysowanie sceny
   DrawGLScene;
-end;
-
-procedure TForm1.FormPaint(Sender: TObject);
-begin
-   self.DrawGLScene;
-end;
-
-procedure TForm1.FormMouseMove(Sender: TObject; Shift: TShiftState; X,
-  Y: Integer);
-begin
-  //jezeli myszka ciagnie figure to
-  //ustal o ile i w jakich osiach ja obrocic
-  if dragged then
-  begin
-    xRot:=Y+0.0;
-    yRot:=X+0.0;
-  end;
-end;
-
-procedure TForm1.FormMouseDown(Sender: TObject; Button: TMouseButton;
-  Shift: TShiftState; X, Y: Integer);
-begin
-  //uzytkownik rozpoczal ciagniecie myszka
-  dragged:=true;
-end;
-
-procedure TForm1.FormMouseUp(Sender: TObject; Button: TMouseButton;
-  Shift: TShiftState; X, Y: Integer);
-begin
-  //uzytkownik zakonczyl ciagniecie myszka
-  dragged:=false;
 end;
 
 procedure TForm1.TabControl1Change(Sender: TObject);
@@ -450,6 +415,42 @@ procedure TForm1.RadioGroup1Click(Sender: TObject);
 begin
   //zaznaczenie odpowiedniej zak³adki
   TabControl1.TabIndex:=RadioGroup1.ItemIndex;
+end;
+
+procedure TForm1.FormPaint(Sender: TObject);
+begin
+   self.DrawGLScene;
+end;
+
+procedure TForm1.Panel2MouseDown(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+begin
+  //uzytkownik rozpoczal ciagniecie myszka
+  dragged:=true;
+end;
+
+procedure TForm1.Panel2MouseMove(Sender: TObject; Shift: TShiftState; X,
+  Y: Integer);
+begin
+  //jezeli myszka ciagnie figure to
+  //ustal o ile i w jakich osiach ja obrocic
+  if dragged then
+  begin
+    xRot:=Y+0.0;
+    yRot:=X+0.0;
+  end;
+end;
+
+procedure TForm1.Panel2MouseUp(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+begin
+  //uzytkownik zakonczyl ciagniecie myszka
+  dragged:=false;
+end;
+
+procedure TForm1.Panel2Resize(Sender: TObject);
+begin
+  ReSizeGLScene(Form1.Panel2.ClientWidth, Form1.Panel2.ClientHeight);
 end;
 
 end.

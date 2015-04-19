@@ -1,5 +1,5 @@
 object Form1: TForm1
-  Left = 173
+  Left = 177
   Top = 214
   Width = 662
   Height = 498
@@ -13,11 +13,7 @@ object Form1: TForm1
   OldCreateOrder = False
   OnClose = FormClose
   OnCreate = FormCreate
-  OnMouseDown = FormMouseDown
-  OnMouseMove = FormMouseMove
-  OnMouseUp = FormMouseUp
   OnPaint = FormPaint
-  OnResize = FormResize
   PixelsPerInch = 96
   TextHeight = 13
   object Panel1: TPanel
@@ -33,7 +29,7 @@ object Form1: TForm1
       Width = 183
       Height = 88
       Align = alTop
-      Caption = 'Przekszta'#322'cenia'
+      Caption = 'Przeksztalcenia'
       TabOrder = 0
       DesignSize = (
         183
@@ -76,11 +72,11 @@ object Form1: TForm1
       Caption = 'Wielosciany'
       ItemIndex = 0
       Items.Strings = (
-        'Czworo'#347'cian (tetraedr)'
-        'Sze'#347'cian (heksaedr)'
-        'O'#347'mio'#347'cian (oktaedr)'
-        'Dwunasto'#347'cian (dodekaedr)'
-        'Dwudziesto'#347'cian (icosaedr)')
+        'Czworoscian (tetraedr)'
+        'Szescian (heksaedr)'
+        'Osmioscian (oktaedr)'
+        'Dwunastoscian (dodekaedr)'
+        'Dwudziestoscian (icosaedr)')
       TabOrder = 1
       OnClick = RadioGroup1Click
     end
@@ -94,13 +90,25 @@ object Form1: TForm1
     Style = tsFlatButtons
     TabOrder = 1
     Tabs.Strings = (
-      'Czworo'#347'cian'
-      'Sze'#347'cian'
-      'O'#347'mio'#347'cian'
-      'Dwunasto'#347'cian'
-      'Dwudziesto'#347'cian')
+      'Czworoscian'
+      'Szescian'
+      'Osmioscian'
+      'Dwunastoscian'
+      'Dwudziestoscian')
     TabIndex = 0
     OnChange = TabControl1Change
+  end
+  object Panel2: TPanel
+    Left = 0
+    Top = 25
+    Width = 469
+    Height = 446
+    Align = alClient
+    TabOrder = 2
+    OnMouseDown = Panel2MouseDown
+    OnMouseMove = Panel2MouseMove
+    OnMouseUp = Panel2MouseUp
+    OnResize = Panel2Resize
   end
   object Timer1: TTimer
     Interval = 10
